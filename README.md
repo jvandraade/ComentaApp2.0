@@ -15,11 +15,10 @@ Urban Complaints Platform for local residents to report infrastructure issues.
 - .NET 9
 - ASP.NET Core Web API
 - Entity Framework Core
-- SQL Server
 
 ### DevOps
 
-- Docker & Docker Compose
+- PostgreSQL
 - Git
 
 ## 📁 Project Structure
