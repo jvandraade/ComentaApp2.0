@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ComentaApp.Application/ComentaApp.Application.csproj" />
+  <Project Path="ComentaApp.Domain/ComentaApp.Domain.csproj" />
+  <Project Path="ComentaApp.Infrastructure/ComentaApp.Infrastructure.csproj" />
+  <Project Path="ComentaApp.Tests/ComentaApp.Tests.csproj" />
+</Solution>
