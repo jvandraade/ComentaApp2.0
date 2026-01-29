@@ -47,7 +47,10 @@ export const Header: React.FC = () => {
             </button>
 
             <div className="hidden md:flex items-center gap-2">
-              <button className="p-2 rounded-lg hover:bg-white/5 transition-colors">
+              <button
+                onClick={() => navigate('/profile')}
+                className="p-2 rounded-lg hover:bg-white/5 transition-colors"
+              >
                 <User className="w-5 h-5 text-accent-gray" />
               </button>
               <span className="text-accent-gray text-sm">
