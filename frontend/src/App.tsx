@@ -4,16 +4,16 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { ProfilePage } from './pages/ProfilePage';
+import { NewComplaintPage } from './pages/NewComplaintPage';
 import { MainLayout } from './components/layout/MainLayout';
 
-// Home Page
+// Home Page (temporary)
 const HomePage = () => (
   <MainLayout>
     <div className="text-center py-12">
       <h1 className="text-5xl font-bold text-accent mb-4">
         Bem-vindo ao <span className="text-primary">ComentaApp</span>
       </h1>
-      <p className="text-accent-gray text-lg">Sistema de autenticação funcionando! ✅</p>
     </div>
   </MainLayout>
 );
@@ -42,6 +42,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/complaints/new"
+            element={
+              <ProtectedRoute>
+                <NewComplaintPage />
               </ProtectedRoute>
             }
           />

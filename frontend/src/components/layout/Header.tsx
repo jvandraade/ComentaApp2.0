@@ -68,7 +68,11 @@ export const Header: React.FC = () => {
               Sair
             </Button>
 
-            <Button size="sm" className="hidden sm:inline-flex">
+            <Button
+              size="sm"
+              className="hidden sm:inline-flex"
+              onClick={() => navigate('/complaints/new')}
+            >
               Nova Reclamação
             </Button>
 
