@@ -9,6 +9,7 @@ import { complaintService } from '../services/complaintService';
 import { Category } from '../types/complaint';
 import { ApiError } from '../types/error';
 import { AlertCircle, MapPin } from 'lucide-react';
+import { MediaUpload } from '../components/ui/MediaUpload';
 
 export const NewComplaintPage: React.FC = () => {
   const navigate = useNavigate();
@@ -25,6 +26,8 @@ export const NewComplaintPage: React.FC = () => {
     latitude: undefined as number | undefined,
     longitude: undefined as number | undefined,
   });
+
+  const [mediaUrls, setMediaUrls] = useState<string[]>([]);
 
   useEffect(() => {
     loadCategories();
@@ -61,7 +64,7 @@ export const NewComplaintPage: React.FC = () => {
         address: formData.address,
         latitude: formData.latitude,
         longitude: formData.longitude,
-        mediaUrls: [], // Por enquanto sem upload de mídia
+        mediaUrls: mediaUrls,
       });
 
       navigate('/'); // Redireciona para home após criar
@@ -164,6 +167,9 @@ export const NewComplaintPage: React.FC = () => {
                 {formData.description.length}/2000 caracteres
               </p>
             </div>
+
+            {/* Media Upload */}
+            <MediaUpload onChange={urls => setMediaUrls(urls)} maxFiles={5} />
 
             {/* Address */}
             <Input

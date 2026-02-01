@@ -20,11 +20,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Register application services
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
-
-// Register application services
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IComplaintService, ComplaintService>();
+builder.Services.AddScoped<IFileUploadService, FileUploadService>(); // NOVO
 
 // Configure JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -64,12 +61,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Seed database
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    await ComentaApp.Infrastructure.Data.DbSeeder.SeedCategoriesAsync(context);
-}
+// Serve static files (images/videos)
+app.UseStaticFiles();
 
 // app.UseHttpsRedirection(); // COMMENTED - pending SSL configuration
 
@@ -77,6 +70,13 @@ app.UseCors("AllowFrontend");
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Seed database
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    await ComentaApp.Infrastructure.Data.DbSeeder.SeedCategoriesAsync(context);
+}
 
 app.MapControllers();
 
