@@ -5,18 +5,7 @@ import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { NewComplaintPage } from './pages/NewComplaintPage';
-import { MainLayout } from './components/layout/MainLayout';
-
-// Home Page (temporary)
-const HomePage = () => (
-  <MainLayout>
-    <div className="text-center py-12">
-      <h1 className="text-5xl font-bold text-accent mb-4">
-        Bem-vindo ao <span className="text-primary">ComentaApp</span>
-      </h1>
-    </div>
-  </MainLayout>
-);
+import { FeedPage } from './pages/FeedPage';
 
 function App() {
   return (
@@ -32,7 +21,7 @@ function App() {
             path="/"
             element={
               <ProtectedRoute>
-                <HomePage />
+                <FeedPage />
               </ProtectedRoute>
             }
           />

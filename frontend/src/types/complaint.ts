@@ -44,3 +44,26 @@ export interface ComplaintMedia {
   mediaUrl: string;
   mediaType: 'Image' | 'Video';
 }
+
+export interface CommentData {
+  id: string;
+  userId: string;
+  user: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    avatarUrl?: string;
+  };
+  complaintId: string;
+  content: string;
+  createdAt: string;
+}
+
+export interface CreateComment {
+  content: string;
+}
+
+export interface LikeResponse {
+  isLiked: boolean;
+  likesCount: number;
+}
