@@ -1,5 +1,11 @@
 import api from './api';
-import { Category, CreateComplaint, Complaint } from '../types/complaint';
+import {
+  Category,
+  CreateComplaint,
+  Complaint,
+  SearchParams,
+  PaginatedResponse,
+} from '../types/complaint';
 
 export const complaintService = {
   async getCategories(): Promise<Category[]> {
@@ -21,5 +27,21 @@ export const complaintService = {
     const response = await api.get<Complaint>(`/complaint/${id}`);
     return response.data;
   },
+
+  async searchComplaints(params: SearchParams): Promise<PaginatedResponse<Complaint>> {
+    const response = await api.get<PaginatedResponse<Complaint>>('/complaint/search', {
+      params: {
+        keyword: params.keyword || undefined,
+        categoryId: params.categoryId || undefined,
+        status: params.status || undefined,
+        state: params.state || undefined,
+        city: params.city || undefined,
+        page: params.page || 1,
+        pageSize: params.pageSize || 10,
+      },
+    });
+    return response.data;
+  },
 };
+
 export default complaintService;

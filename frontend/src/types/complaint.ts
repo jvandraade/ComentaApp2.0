@@ -67,3 +67,23 @@ export interface LikeResponse {
   isLiked: boolean;
   likesCount: number;
 }
+
+export interface SearchParams {
+  keyword?: string;
+  categoryId?: string;
+  status?: string;
+  state?: string;
+  city?: string;
+  page?: number;
+  pageSize?: number;
+}
+
+export interface PaginatedResponse<T> {
+  data: T[];
+  totalCount: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+}

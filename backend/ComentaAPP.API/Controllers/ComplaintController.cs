@@ -102,5 +102,46 @@ namespace ComentaApp.API.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        [HttpGet("search")]
+public async Task<IActionResult> SearchComplaints(
+    [FromQuery] string? keyword,
+    [FromQuery] Guid? categoryId,
+    [FromQuery] string? status,
+    [FromQuery] string? state,
+    [FromQuery] string? city,
+    [FromQuery] int page = 1,
+    [FromQuery] int pageSize = 10)
+{
+    try
+    {
+        var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        Guid? currentUserId = null;
+
+        if (!string.IsNullOrEmpty(userIdClaim) && Guid.TryParse(userIdClaim, out var userId))
+        {
+            currentUserId = userId;
+        }
+
+        var searchDto = new SearchComplaintDto
+        {
+            Keyword = keyword,
+            CategoryId = categoryId,
+            Status = status,
+            State = state,
+            City = city,
+            Page = page,
+            PageSize = pageSize
+        };
+
+        var result = await _complaintService.SearchComplaintsAsync(searchDto, currentUserId);
+        return Ok(result);
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "Error searching complaints");
+        return BadRequest(new { message = ex.Message });
+    }
+}
     }
 }

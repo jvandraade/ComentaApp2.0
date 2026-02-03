@@ -7,6 +7,7 @@ namespace ComentaApp.Application.Interfaces
         Task<ComplaintDto> CreateComplaintAsync(Guid userId, CreateComplaintDto dto);
         Task<ComplaintDto> GetComplaintByIdAsync(Guid complaintId, Guid? currentUserId = null);
         Task<List<ComplaintDto>> GetComplaintsAsync(Guid? currentUserId = null);
+        Task<PaginatedResponseDto<ComplaintDto>> SearchComplaintsAsync(SearchComplaintDto searchDto, Guid? currentUserId = null);
         Task<List<CategoryDto>> GetCategoriesAsync();
     }
 }

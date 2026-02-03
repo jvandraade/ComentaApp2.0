@@ -148,5 +148,80 @@ namespace ComentaApp.Infrastructure.Services
             var videoExtensions = new[] { ".mp4", ".mov", ".avi", ".webm" };
             return videoExtensions.Contains(extension) ? MediaType.Video : MediaType.Image;
         }
+
+        public async Task<PaginatedResponseDto<ComplaintDto>> SearchComplaintsAsync(SearchComplaintDto searchDto, Guid? currentUserId = null)
+{
+    var query = _context.Complaints
+        .Include(c => c.User)
+        .Include(c => c.Category)
+        .Include(c => c.Media)
+        .Include(c => c.Likes)
+        .Include(c => c.Comments)
+        .AsQueryable();
+
+    // Filter by keyword (title or description)
+    if (!string.IsNullOrWhiteSpace(searchDto.Keyword))
+    {
+        var keyword = searchDto.Keyword.ToLower();
+        query = query.Where(c =>
+            c.Title.ToLower().Contains(keyword) ||
+            c.Description.ToLower().Contains(keyword) ||
+            c.Address.ToLower().Contains(keyword));
+    }
+
+    // Filter by category
+    if (searchDto.CategoryId.HasValue)
+    {
+        query = query.Where(c => c.CategoryId == searchDto.CategoryId.Value);
+    }
+
+    // Filter by status
+    if (!string.IsNullOrWhiteSpace(searchDto.Status))
+    {
+        if (Enum.TryParse<ComplaintStatus>(searchDto.Status, out var status))
+        {
+            query = query.Where(c => c.Status == status);
+        }
+    }
+
+    // Filter by state
+    if (!string.IsNullOrWhiteSpace(searchDto.State))
+    {
+        query = query.Where(c => c.User.State.ToUpper() == searchDto.State.ToUpper());
+    }
+
+    // Filter by city
+    if (!string.IsNullOrWhiteSpace(searchDto.City))
+    {
+        query = query.Where(c => c.User.City.ToLower().Contains(searchDto.City.ToLower()));
+    }
+
+    // Order by most recent
+    query = query.OrderByDescending(c => c.CreatedAt);
+
+    // Get total count
+    var totalCount = await query.CountAsync();
+
+    // Paginate
+    var complaints = await query
+        .Skip((searchDto.Page - 1) * searchDto.PageSize)
+        .Take(searchDto.PageSize)
+        .ToListAsync();
+
+    var totalPages = (int)Math.Ceiling((double)totalCount / searchDto.PageSize);
+
+    return new PaginatedResponseDto<ComplaintDto>
+    {
+        Data = complaints.Select(c => MapToDto(c, currentUserId)).ToList(),
+        TotalCount = totalCount,
+        Page = searchDto.Page,
+        PageSize = searchDto.PageSize,
+        TotalPages = totalPages,
+        HasNextPage = searchDto.Page < totalPages,
+        HasPreviousPage = searchDto.Page > 1
+    };
+}
     }
 }
+
+
