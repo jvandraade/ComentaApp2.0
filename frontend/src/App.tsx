@@ -6,6 +6,7 @@ import { RegisterPage } from './pages/RegisterPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { NewComplaintPage } from './pages/NewComplaintPage';
 import { FeedPage } from './pages/FeedPage';
+import { DashboardPage } from './pages/DashboardPage';
 
 function App() {
   return (
@@ -40,6 +41,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <NewComplaintPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
               </ProtectedRoute>
             }
           />

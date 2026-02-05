@@ -1,4 +1,4 @@
-import { Github, Twitter, Instagram } from 'lucide-react';
+import { Github, Linkedin, Instagram } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
@@ -61,13 +61,25 @@ export const Footer: React.FC = () => {
           <div>
             <h3 className="text-accent font-semibold mb-4">Redes Sociais</h3>
             <div className="flex gap-3">
-              <a href="#" className="p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
+              <a
+                href="https://github.com/jvandraade/comentaapp2.0"
+                target="_blank"
+                className="p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+              >
                 <Github className="w-5 h-5 text-accent-gray" />
               </a>
-              <a href="#" className="p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
-                <Twitter className="w-5 h-5 text-accent-gray" />
+              <a
+                href="https://www.linkedin.com/in/joão-vitor-andrade-santos/"
+                target="_blank"
+                className="p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+              >
+                <Linkedin className="w-5 h-5 text-accent-gray" />
               </a>
-              <a href="#" className="p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
+              <a
+                href="https://www.instagram.com/vitao_andraade/"
+                target="_blank"
+                className="p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
+              >
                 <Instagram className="w-5 h-5 text-accent-gray" />
               </a>
             </div>

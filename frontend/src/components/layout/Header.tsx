@@ -21,14 +21,18 @@ export const Header: React.FC = () => {
           {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center">
-              <span className="text-dark font-bold text-xl">C</span>
+              <Button>
+                <span onClick={() => navigate('/')} className="text-dark font-bold text-xl">
+                  C
+                </span>
+              </Button>
             </div>
             <span className="text-xl font-bold text-accent hidden sm:block">ComentaApp</span>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-6">
-            <a href="#" className="text-accent-gray hover:text-primary transition-colors">
+            <a href="/" className="text-accent-gray hover:text-primary transition-colors">
               Feed
             </a>
             <a href="#" className="text-accent-gray hover:text-primary transition-colors">
@@ -60,20 +64,33 @@ export const Header: React.FC = () => {
 
             <Button
               size="sm"
+              className="hidden sm:inline-flex"
+              onClick={() => navigate('/complaints/new')}
+            >
+              Nova Reclamação
+            </Button>
+
+            <Button size="sm">
+              <a
+                href="/dashboard"
+                onClick={e => {
+                  e.preventDefault();
+                  navigate('/dashboard');
+                }}
+                className="hidden sm:inline-flex"
+              >
+                Dashboard
+              </a>
+            </Button>
+
+            <Button
+              size="sm"
               variant="ghost"
               onClick={handleLogout}
               leftIcon={<LogOut className="w-4 h-4" />}
               className="hidden md:inline-flex"
             >
               Sair
-            </Button>
-
-            <Button
-              size="sm"
-              className="hidden sm:inline-flex"
-              onClick={() => navigate('/complaints/new')}
-            >
-              Nova Reclamação
             </Button>
 
             {/* Mobile Menu Button */}
@@ -106,6 +123,7 @@ export const Header: React.FC = () => {
               <a href="#" className="text-accent-gray hover:text-primary transition-colors py-2">
                 Mapa
               </a>
+
               <Button size="sm" className="mt-2">
                 Nova Reclamação
               </Button>
