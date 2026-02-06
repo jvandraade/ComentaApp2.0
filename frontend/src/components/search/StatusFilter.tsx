@@ -13,7 +13,7 @@ const statuses = [
   { value: 'Rejected', label: '❌ Rejeitado', color: '#EF4444' },
 ];
 
-export const StatusFilter: React.FC<StatusFilterProps> = ({ selectedStatus, onSelect }) => {
+export const StatusFilter = React.memo<StatusFilterProps>(({ selectedStatus, onSelect }) => {
   return (
     <div className="flex gap-2 overflow-x-auto pb-2">
       {statuses.map(status => (
@@ -32,4 +32,4 @@ export const StatusFilter: React.FC<StatusFilterProps> = ({ selectedStatus, onSe
       ))}
     </div>
   );
-};
+});

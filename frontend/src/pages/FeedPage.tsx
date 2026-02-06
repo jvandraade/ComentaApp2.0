@@ -260,3 +260,5 @@ export const FeedPage: React.FC = () => {
     </MainLayout>
   );
 };
+
+export default FeedPage;

@@ -15,7 +15,7 @@ interface CommentsModalProps {
   complaint: Complaint | null;
 }
 
-export const CommentsModal: React.FC<CommentsModalProps> = ({ isOpen, onClose, complaint }) => {
+export const CommentsModal = React.memo<CommentsModalProps>(({ isOpen, onClose, complaint }) => {
   const { user } = useAuth();
   const [comments, setComments] = useState<CommentData[]>([]);
   const [newComment, setNewComment] = useState('');
@@ -155,6 +155,6 @@ export const CommentsModal: React.FC<CommentsModalProps> = ({ isOpen, onClose, c
       </form>
     </Modal>
   );
-};
+});
 
 export default CommentsModal;

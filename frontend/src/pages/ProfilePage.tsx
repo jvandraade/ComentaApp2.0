@@ -279,3 +279,5 @@ export const ProfilePage: React.FC = () => {
     </MainLayout>
   );
 };
+
+export default ProfilePage;

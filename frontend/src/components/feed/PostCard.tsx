@@ -12,7 +12,7 @@ interface PostCardProps {
   onCommentClick: (complaint: Complaint) => void;
 }
 
-export const PostCard: React.FC<PostCardProps> = ({ complaint, onCommentClick }) => {
+export const PostCard = React.memo<PostCardProps>(({ complaint, onCommentClick }) => {
   const [isLiked, setIsLiked] = useState(complaint.isLikedByCurrentUser);
   const [likesCount, setLikesCount] = useState(complaint.likesCount);
   const [isLiking, setIsLiking] = useState(false);
@@ -162,6 +162,6 @@ export const PostCard: React.FC<PostCardProps> = ({ complaint, onCommentClick })
       </div>
     </Card>
   );
-};
+});
 
 export default PostCard;

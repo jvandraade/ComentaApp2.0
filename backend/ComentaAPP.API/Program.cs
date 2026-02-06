@@ -26,6 +26,13 @@ builder.Services.AddScoped<ILikeService, LikeService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 
+// Response Compression & Caching
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+});
+builder.Services.AddResponseCaching();
+
 // Configure JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -64,15 +71,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Serve static files (images/videos)
-app.UseStaticFiles();
-
 // app.UseHttpsRedirection(); // COMMENTED - pending SSL configuration
 
-app.UseCors("AllowFrontend");
+app.UseResponseCompression();  // Compression
+app.UseResponseCaching();      // Caching
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseStaticFiles();          // Arquivos estáticos
+
+app.UseCors("AllowFrontend");  // CORS
+
+app.UseAuthentication();       // Autenticação
+app.UseAuthorization();        // Autorização
 
 // Seed database
 using (var scope = app.Services.CreateScope())
@@ -81,6 +90,6 @@ using (var scope = app.Services.CreateScope())
     await ComentaApp.Infrastructure.Data.DbSeeder.SeedCategoriesAsync(context);
 }
 
-app.MapControllers();
+app.MapControllers();          // Mapear controllers
 
 app.Run();
